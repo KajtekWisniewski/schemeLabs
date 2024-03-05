@@ -1,0 +1,86 @@
+#lang racket
+
+(define salutation (list-ref '("Hi" "Hello") (random 2)))
+
+(define (greet name)
+  (string-append salutation ", " name))
+ 
+(greet "John")
+
+(define (new.< x y)
+  (if (and ( > x y ) (< y x))
+  #f
+  #t))
+
+(define (new.> x y)
+  (if (and ( > x y ) (< y x))
+  #t
+  #f))
+
+(define (new.= x y)
+  (if (= x y)
+      #t
+      #f))
+
+(define (new.>= x y)
+  (if ( >= x y )
+  #t
+  #f))
+
+(define (new.<= x y)
+  (if ( <= x y )
+  #t
+  #f))
+
+(define (new.<> x y)
+  (if (not (= x y))
+      #t
+      #f))
+
+(define (nwd a b)
+  (if (> b 0)
+      (nwd b (modulo a b))
+       a))
+
+(define (nww a b)
+  (/ (* a b) (nwd a b)))
+
+(define (funkcja operator a b)
+  (if (operator a b)
+  #t
+  #f))
+
+(define (same-values? p1 p2 x y)
+  (if (and (p1 x y) (p2 x y))
+      #t
+      #f))
+
+(new.< 5 3)
+(new.> 5 3)
+(new.= 5 3)
+(new.= 5 5)
+(new.= 5 5)
+"asdsa"
+(new.>= 5 6)
+(new.>= 5 5)
+(new.>= 5 3)
+"sadasd"
+(new.<= 5 6)
+(new.<= 5 5)
+(new.<= 5 3)
+"asdads"
+(new.<> 5 5)
+(new.<> 5 4)
+(nwd 100 25)
+"safsaffsa"
+(funkcja = 3 5)
+(funkcja = 5 5)
+"saffsafsagfsagsa"
+(same-values? = new.= 3 1)
+(same-values? = new.= 3 3)
+(same-values? < > 2 3)
+(same-values? + * 2 2)
+(same-values? = = 3 5)
+
+
+
