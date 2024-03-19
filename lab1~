@@ -37,6 +37,7 @@
       #t
       #f))
 
+;3
 (define (nwd a b)
   (if (> b 0)
       (nwd b (modulo a b))
@@ -45,15 +46,70 @@
 (define (nww a b)
   (/ (* a b) (nwd a b)))
 
+
 (define (funkcja operator a b)
   (if (operator a b)
   #t
   #f))
 
+;4
 (define (same-values? p1 p2 x y)
   (if (and (p1 x y) (p2 x y))
       #t
       #f))
+
+;5
+(define (odd? n)
+  (if (zero? (modulo n 2))
+      #f
+      #t))
+
+(define (even? n)
+  (if (zero? (modulo n 2))
+      #t
+      #f))
+
+;6
+(define (factorialhelp n acc)
+  (if (> n 0)
+      (factorialhelp (- n 1) (* acc n))
+      acc
+      ))
+
+(define (factorial n)
+  (factorialhelp n 1))
+
+(define (factorialdef n [acc 1])
+  (if (> n 0)
+      (factorialdef (- n 1) (* acc n))
+      acc
+      ))
+
+;7
+(define (fibonacci n)
+  (if (<= n 1)
+      n
+      (+ (fibonacci (- n 1)) (fibonacci (- n 2)))
+      ))
+
+(define (fib-tr n)
+  (define (fib-helper n-minus-1 n-minus-2 acc)
+    (if (= acc n) 
+        (+ n-minus-1 n-minus-2)
+        (fib-helper (+ n-minus-1 n-minus-2) 
+                    n-minus-1 
+                    (+ 1 acc))))
+  (if (< n 3) 1 (fib-helper 1 1 3)
+      ))
+
+;8 algorytm szybkiego potegowania
+;exponentiation by squaring
+(define (exp b e)
+  (cond)
+  [(= n 0) (1)]
+  [()]
+  [()])
+
 
 (new.< 5 3)
 (new.> 5 3)
@@ -81,6 +137,21 @@
 (same-values? < > 2 3)
 (same-values? + * 2 2)
 (same-values? = = 3 5)
-
-
+"odds"
+(odd? 4)
+(odd? 5)
+(even? 4)
+(even? 5)
+"factorial"
+(factorial 0)
+(factorial 1)
+(factorial 2)
+(factorial 3)
+(factorial 4)
+(factorial 5)
+(factorial 6)
+(factorialdef 5)
+"fibo"
+(for/list ([i 11])
+  (fib-tr i))
 

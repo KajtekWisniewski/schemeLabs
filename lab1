@@ -104,11 +104,94 @@
 
 ;8 algorytm szybkiego potegowania
 ;exponentiation by squaring
-(define (exp b e)
-  (cond)
-  [(= n 0) (1)]
-  [()]
-  [()])
+;(define (exp b e)
+ ; (cond)
+  ;[(= n 0) (1)]
+  ;[()]
+  ;[()])
+
+;10
+
+(define (product term next a b)
+  (if (> a b)
+      1
+      (* (term a)
+         (product term next (next a) b))))
+
+(define (sum term next a b)
+  (if (> a b)
+      0
+      (+ (term a)
+      (sum term next (next a) b)))
+      )
+
+(define (silnia n)
+  (define (term x) x)
+  (define (next x) (+ x 1))
+  (product term next 1 n))
+
+(define (approximate-p n)
+  (define (term x)
+    (if (even? x)
+        x
+        (+ x 1)))
+  (define (next x)
+    (+ x 1))
+  (/ (* 4 (product term next 2 n))
+     (product next next 3 n)))
+
+;11
+
+(define (accumulate combiner null-value term a next b)
+  (if (> a b)
+      null-value
+      (combiner (term a)
+                (accumulate combiner null-value term (next a) next b))))
+
+;redef
+(define (sum1 term a b)
+  (define (combiner x y) (+ x y))
+  (define (next x) (+ x 1))
+  (accumulate combiner 0 term a next b))
+
+(define (product1 term a b)
+  (define (combiner x y) (* x y))
+  (define (next x) (+ x 1))
+  (accumulate combiner 1 term a next b))
+
+;12
+
+(define (filter-accumulate combiner null-value term pred a next b)
+  (if (> a b)
+      null-value
+      (if (pred a)
+          (combiner (term a) (filter-accumulate combiner null-value term next (next a) b))
+          (filter-accumulate combiner null-value term next (next a) b))))
+
+       ;(let ((current-term (term a)))
+        ;(if (pred current-term)
+            ;(combiner current-term
+                      ;(filter-accumulate combiner null-value term pred (next a) next b))
+            ;(filter-accumulate combiner null-value term pred (next a) next b)))))
+
+;13
+
+
+;15
+(define (root f a b)
+  (define (close-enough? x y)
+    (< (abs (- x y)) 0.01))
+
+  (define (proba guess)
+    (let ((value (f guess)))
+      (cond ((close-enough? value 0) guess)
+            ((< value 0) (proba (average guess b)))
+            ((> value 0) (proba (average guess a))))))
+
+  (define (average x y)
+    (/ (+ x y) 2))
+
+  (proba (average a b)))
 
 
 (new.< 5 3)
@@ -154,4 +237,19 @@
 "fibo"
 (for/list ([i 11])
   (fib-tr i))
+"10 product term"
+(silnia 5) ; 
+(approximate-p 10) ;
+"11"
+(define (term x) x) ; 
+(define (next x) (+ x 1)) ; 
 
+(define (new-sum term a b)
+  (define (combiner x y) (+ x y))
+  (accumulate combiner 0 term a next b))
+
+(define (new-product term a b)
+  (define (combiner x y) (* x y))
+  (accumulate combiner 1 term a next b))
+
+(new-sum term 5 10)
